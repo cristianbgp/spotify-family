@@ -3,19 +3,12 @@ import Head from "next/head";
 import fetcher from "./../utils/fetcher";
 import useSWR from "swr";
 import { SSRSuspense } from "../utils/ssr-suspense";
+import Calendar from "./../components/calendar";
 
-Home.getInitialProps = async () => {
-  const users = await fetcher(
-    "https://my-spotify-family-api.herokuapp.com/users"
-  );
-  return { users };
-};
-
-function Home({ users }) {
+function Home() {
   const {
     data: { data: responseFromUsers }
   } = useSWR("https://my-spotify-family-api.herokuapp.com/users", fetcher, {
-    initialData: users,
     suspense: true
   });
 
@@ -25,11 +18,11 @@ function Home({ users }) {
         <title>Spotify Family</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <h1>Spotify Family</h1>
       {responseFromUsers.map(user => (
-        <p>{user.attributes.firstName}</p>
+        <p key={user.id}>{user.attributes.firstName}</p>
       ))}
+      <Calendar />
     </div>
   );
 }
