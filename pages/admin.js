@@ -3,7 +3,6 @@ import Head from "next/head";
 import fetcher from "./../utils/fetcher";
 import useSWR from "swr";
 import { SSRSuspense } from "../utils/ssr-suspense";
-import { format } from "date-fns";
 
 function PaymentForm() {
   const {

@@ -18,20 +18,56 @@ function Home() {
         <title>Spotify Family</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Spotify Family</h1>
-      {responseFromUsers.map(user => (
-        <p key={user.id}>{user.attributes.firstName}</p>
-      ))}
-      <Calendar />
+      <header
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "2rem"
+        }}
+      >
+        <h1>Spotify Family</h1>
+      </header>
+      <div style={{ display: "flex" }}>
+        <div style={{ marginTop: 50 }}>
+          {responseFromUsers.map(user => (
+            <div
+              style={{
+                minWidth: "max-content",
+                padding: "1rem",
+                height: 32,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <p key={user.id}>{user.attributes.fullName}</p>
+            </div>
+          ))}
+        </div>
+        <SSRSuspense fallback={<p>Loading ...</p>}>
+          <Calendar users={responseFromUsers} />
+        </SSRSuspense>
+      </div>
     </div>
   );
 }
 
 function App() {
   return (
-    <SSRSuspense fallback={<p>Loading ...</p>}>
-      <Home />
-    </SSRSuspense>
+    <>
+      <SSRSuspense fallback={<p>Loading ...</p>}>
+        <Home />
+        <style jsx global>{`
+          * {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+              Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+              sans-serif;
+          }
+        `}</style>
+      </SSRSuspense>
+    </>
   );
 }
 
