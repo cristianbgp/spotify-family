@@ -33,7 +33,7 @@ function Home() {
           {responseFromUsers.map(user => (
             <div
               style={{
-                minWidth: "max-content",
+                width: "max-content",
                 padding: "1rem",
                 height: 32,
                 display: "flex",
