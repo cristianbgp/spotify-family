@@ -32,6 +32,7 @@ function Home() {
         <div style={{ marginTop: 50 }}>
           {responseFromUsers.map(user => (
             <div
+              key={user.id}
               style={{
                 width: "max-content",
                 padding: "1rem",
@@ -41,7 +42,7 @@ function Home() {
                 alignItems: "center"
               }}
             >
-              <p key={user.id}>{user.attributes.fullName}</p>
+              <p>{user.attributes.fullName}</p>
             </div>
           ))}
         </div>

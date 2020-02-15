@@ -1,7 +1,7 @@
 import React from "react";
 import fetcher from "./../utils/fetcher";
 import useSWR from "swr";
-import { format } from "date-fns";
+import { format, getDate } from "date-fns";
 import CheckIcon from "./icons/check";
 import CrossIcon from "./icons/cross";
 // Remove when this works from data-fns
@@ -17,8 +17,20 @@ function Calendar({ users }) {
     suspense: true
   });
 
+  const numberOfMonthsUntilToday =
+    eachMonthOfInterval({
+      start: initialDate,
+      end: new Date()
+    }).length - 1;
+
+  const calendarContainer = React.useRef(null);
+
+  React.useEffect(() => {
+    calendarContainer.current.scrollLeft = numberOfMonthsUntilToday * 100;
+  }, []);
+
   return (
-    <div style={{ display: "flex", overflowX: "auto" }}>
+    <div style={{ display: "flex", overflowX: "auto" }} ref={calendarContainer}>
       {eachMonthOfInterval({
         start: initialDate,
         end: finalDate
